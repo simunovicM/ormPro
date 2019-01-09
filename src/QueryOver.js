@@ -94,7 +94,7 @@ const queryOverFnc = sqlSelectFnc => {
 
     let orderByFnc = direction => obj => {
       obj = Array.isArray(obj) ? obj : [obj];
-      return cloneQueryOver(cloneTree(), { orders: [...orders, obj.map(f => ({ value: f, direction: direction }))] });
+      return cloneQueryOver(cloneTree(), { orders: [...orders, ...obj.map(f => ({ value: f, direction: direction }))] });
     }
     queryRetObj.orderByAsc = orderByFnc('asc');
     queryRetObj.orderByDesc = orderByFnc('desc');

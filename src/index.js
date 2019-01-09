@@ -4,7 +4,7 @@ import deleteFnc from './Delete';
 import { isFunction, isArray } from 'util';
 import { splitMultiData } from './sqlCommon';
 
-const sqlManager = (() => {
+module.exports = (() => {
   let definitions = [];
   let retObj = {};
   retObj.define = (objName, tableName) => {
@@ -85,12 +85,10 @@ const sqlManager = (() => {
   }
   retObj.sendQuery = (query, selectPrefix) => {
     sqlSelectFnc(query.getQuery(selectPrefix))
-      .then(response => { console.log(response); thenFnc(query.parse(response.data)) });
+      .then(response => { thenFnc(query.parse(response)) });
     let thenFnc = _ => null;
     return { then: fnc => thenFnc = fnc };
   };
 
   return retObj;
 })();
-
-export default sqlManager;
